@@ -1,0 +1,15 @@
+{
+    "translation": {
+        "nav": {
+            "connect": "连接SRS",
+            "summaries": "概览",
+            "vhosts": "虚拟主机(Vhosts)",
+            "streams": "视频流",
+            "clients": "客户端",
+            "configs": "配置"
+        },
+        "test": "Test测试",
+        "sample": "样本 <bold1><italic1>加粗 text</italic1></bold1>",
+        "changed": "你已经切换了 {{count}} 次"
+    }
+}
