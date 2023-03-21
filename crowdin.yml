@@ -1,0 +1,3 @@
+files:
+  - source: /trunk/research/console-react/src/resources/locale/zh.json
+    translation: /%original_path%/%two_letters_code%.json
