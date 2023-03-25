@@ -11,7 +11,8 @@ import { Vhosts } from "./pages/Vhosts";
 import { Login } from "./pages/Login";
 import { Navigator } from "./components/Navigator";
 import { Container } from "react-bootstrap";
-import resources from "./resources/locale.json";
+import resourceZh from "./resources/locale/zh.json";
+import resourceEn from "./resources/locale/en.json";
 
 import i18n from "i18next";
 import { initReactI18next, Trans, useTranslation } from 'react-i18next';
@@ -20,34 +21,34 @@ i18n
     .use(initReactI18next) // passes i18n down to react-i18next
     .init({
       resources: {
-        en: {translation: resources.en.translation},
-        zh: {translation: resources.zh.translation}
+        en: {translation: resourceEn.translation},
+        zh: {translation: resourceZh.translation}
       },
-      lng: "en",
-      fallbackLng: "en",
+      lng: "zh",
+      fallbackLng: "zh",
       interpolation: {escapeValue: false},
     });
 
 function App() {
-  const {t} = useTranslation();
-  const [count, setCount] = useState(0);
-  const changeLan = (e) => {
-      i18n.changeLanguage(e.target.value);
-      setCount((prev) => prev + 1);
-  }
+  // const {t} = useTranslation();
+  // const [count, setCount] = useState(0);
+  // const changeLan = (e) => {
+  //     i18n.changeLanguage(e.target.value);
+  //     setCount((prev) => prev + 1);
+  // }
   return (
     <Suspense fallback="Loading">
-      <h1>{t("nav.connect")}</h1>
+      {/* <h1>{t("nav.connect")}</h1>
       <p>
         <Trans components={{bold1: <b></b>, italic1: <i></i>}}>sample</Trans>
       </p>
-      <p>{t("changed", {count})}</p>
+      <p>{t("changed", {count})}</p> */}
       <BrowserRouter>
         <Navigator></Navigator>
-        <select name='language' onChange={changeLan}>
+        {/* <select name='language' onChange={changeLan}>
           <option value="en">English</option>
           <option value="zh">简体中文</option>
-        </select>
+        </select> */}
         <Routes>
           <Route path="/" element={<Root></Root>}/>
           <Route path=":locale" element={<Locale></Locale>}>
@@ -58,7 +59,6 @@ function App() {
             <Route path="streams" element={<Streams></Streams>}></Route>
             <Route path="clients" element={<Clients></Clients>}></Route>
             <Route path="configs" element={<Configs></Configs>}></Route>
-            <Route path="dvr" element={<Dvr></Dvr>}></Route>
           </Route>
           <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
         </Routes>

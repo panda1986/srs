@@ -1,10 +1,20 @@
+import i18n from "i18next";
 import React, { useState } from "react";
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
+import { LanguageOptions } from "../utils";
 
 export function Navigator() {
+    const {t} = useTranslation();
     //const [navs, setNavs] = useState();
     const location = useLocation();
+    const [lang, setLang] = useState('zh');
+
+    const handleSelectLang = function(e) {
+        setLang(e);
+        i18n.changeLanguage(e);
+    };
 
     React.useEffect(() => {
         console.log(`nav location=${JSON.stringify(location)}`);
@@ -27,14 +37,19 @@ export function Navigator() {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="me-auto" variant="pills">
-                <Nav.Link to={"/connect"} as={Link}>ConnectSRS</Nav.Link>
-                <Nav.Link to={"/summaries"} as={Link}>Overview</Nav.Link>
-                <Nav.Link to={"/vhosts"} as={Link}>Vhosts</Nav.Link>
-                <Nav.Link to={"/streams"} as={Link}>Streams</Nav.Link>
-                <Nav.Link to={"/clients"} as={Link}>Clients</Nav.Link>
-                <Nav.Link to={"/configs"} as={Link}>Configs</Nav.Link>
-                <Nav.Link to={"/dvr"} as={Link}>Dvr</Nav.Link>
+                <Nav.Link to={"/connect"} as={Link}>{t("nav.connect")}</Nav.Link>
+                <Nav.Link to={"/summaries"} as={Link}>{t("nav.summaries")}</Nav.Link>
+                <Nav.Link to={"/vhosts"} as={Link}>{t("nav.vhosts")}</Nav.Link>
+                <Nav.Link to={"/streams"} as={Link}>{t("nav.streams")}</Nav.Link>
+                <Nav.Link to={"/clients"} as={Link}>{t("nav.clients")}</Nav.Link>
+                <Nav.Link to={"/configs"} as={Link}>{t("nav.configs")}</Nav.Link>
               </Nav>
+            </Navbar.Collapse>
+            <Navbar.Collapse className="justify-content-end">
+                <NavDropdown title={LanguageOptions[lang]} id="navLang" onSelect={(e) => handleSelectLang(e)}>
+                  <NavDropdown.Item eventKey="en" active={lang === "en"}>English</NavDropdown.Item>
+                  <NavDropdown.Item eventKey="zh" active={lang === "zh"}>简体中文</NavDropdown.Item>
+                </NavDropdown>
             </Navbar.Collapse>
           </Container>
         </Navbar>
