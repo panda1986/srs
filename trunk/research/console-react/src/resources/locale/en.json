@@ -1,0 +1,15 @@
+{
+    "translation": {
+        "nav": {
+            "connect": "Connect SRS",
+            "summaries": "Overview",
+            "vhosts": "Vhost (Vhosts)",
+            "streams": "Streams",
+            "clients": "Clients",
+            "configs": "Config"
+        },
+        "test": "Test Test",
+        "sample": "Sample <bold1><italic1>Bold text</italic1></bold1>",
+        "changed": "You have changed {{count}} times"
+    }
+}
