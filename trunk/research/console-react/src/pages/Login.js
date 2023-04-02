@@ -6,8 +6,8 @@ export function Login() {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        console.log('login, use effect, navigate to dvr');
-        navigate('/dvr');
+        console.log('login, use effect, navigate to summaries');
+        navigate('/summaries');
     }, [navigate]);
 
     return (

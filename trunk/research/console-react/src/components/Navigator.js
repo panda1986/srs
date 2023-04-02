@@ -7,25 +7,36 @@ import { LanguageOptions } from "../utils";
 
 export function Navigator() {
     const {t} = useTranslation();
-    //const [navs, setNavs] = useState();
-    const location = useLocation();
     const [lang, setLang] = useState('zh');
+    const location = useLocation();
+    const navs = [
+      {eventKey: '1', to:'/summaries', text: "nav.summaries"},
+      {eventKey: '2', to:'/vhosts', text: "nav.vhosts"},
+      {eventKey: '3', to:'/streams', text: "nav.streams"},
+      {eventKey: '4', to:'/clients', text: "nav.clients"},
+      {eventKey: '5', to:'/configs', text: "nav.configs"}
+    ];
+    const [activeKey, setActiveKey] = useState(0);
 
     const handleSelectLang = function(e) {
-        setLang(e);
-        i18n.changeLanguage(e);
+      setLang(e);
+      i18n.changeLanguage(e);
     };
 
     React.useEffect(() => {
-        console.log(`nav location=${JSON.stringify(location)}`);
-        // setNavs([
-        //     {eventKey: '1', to:'/zh/connect', text:'ConnectSRS'}
-        // ])
-    }, [location]);
+      navs.map((e) => {
+        if (location.pathname.indexOf(e.to) >= 0) {
+            setActiveKey(e.eventKey);
+            console.log('set event key', e.eventKey, e.to, ' active');
+        }
+        return e;
+      });
+    }, []);
 
     return(
-        <Navbar bg="light" expand="lg">
-          <Container>
+      <>
+        <Navbar>
+          <Container className={{color:'#fff'}}>
             <Navbar.Brand href="https://github.com/ossrs/srs">
               <img 
                 src="/favicon.ico"
@@ -36,13 +47,14 @@ export function Navigator() {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="me-auto" variant="pills">
-                <Nav.Link to={"/connect"} as={Link}>{t("nav.connect")}</Nav.Link>
-                <Nav.Link to={"/summaries"} as={Link}>{t("nav.summaries")}</Nav.Link>
-                <Nav.Link to={"/vhosts"} as={Link}>{t("nav.vhosts")}</Nav.Link>
-                <Nav.Link to={"/streams"} as={Link}>{t("nav.streams")}</Nav.Link>
-                <Nav.Link to={"/clients"} as={Link}>{t("nav.clients")}</Nav.Link>
-                <Nav.Link to={"/configs"} as={Link}>{t("nav.configs")}</Nav.Link>
+              <Nav variant="pills" activeKey={activeKey} onSelect={(key) => setActiveKey(key)}>
+                  {navs.map((e, index) => {
+                    return (
+                      <Nav.Link eventKey={e.eventKey} as={Link} to={e.to} key={index}>
+                        {t(e.text)}
+                      </Nav.Link>
+                    )
+                  })}
               </Nav>
             </Navbar.Collapse>
             <Navbar.Collapse className="justify-content-end">
@@ -53,5 +65,6 @@ export function Navigator() {
             </Navbar.Collapse>
           </Container>
         </Navbar>
+      </>
     )
 }

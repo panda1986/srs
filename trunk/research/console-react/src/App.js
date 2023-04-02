@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes, Outlet, useParams, useNavigate, useLocati
 import { Clients } from "./pages/Clients";
 import { Configs } from "./pages/Config";
 import {ConnectSRS} from "./pages/ConnectSRS";
-import { Dvr } from "./pages/Dvr";
 import {ErrorPage} from "./pages/ErrorPage";
 import { Overview } from "./pages/Overview";
 import { Streams } from "./pages/Streams";
@@ -16,6 +15,7 @@ import resourceEn from "./resources/locale/en.json";
 
 import i18n from "i18next";
 import { initReactI18next, Trans, useTranslation } from 'react-i18next';
+import { Vhost } from './pages/Vhost';
 
 i18n
     .use(initReactI18next) // passes i18n down to react-i18next
@@ -45,17 +45,17 @@ function App() {
       <p>{t("changed", {count})}</p> */}
       <BrowserRouter>
         <Navigator></Navigator>
-        {/* <select name='language' onChange={changeLan}>
-          <option value="en">English</option>
-          <option value="zh">简体中文</option>
-        </select> */}
         <Routes>
           <Route path="/" element={<Root></Root>}/>
           <Route path=":locale" element={<Locale></Locale>}>
             <Route path="login" element={<Login></Login>}></Route>
             <Route path="connect" element={<ConnectSRS></ConnectSRS>}></Route>
             <Route path="summaries" element={<Overview></Overview>}></Route>
-            <Route path="vhosts" element={<Vhosts></Vhosts>}></Route>
+            <Route path="vhosts">
+              <Route index={true} element={<Vhosts></Vhosts>}></Route>
+              {/* support multiple nested routes: https://stackoverflow.com/questions/64291991/nested-routing-is-not-working-in-react-router-v6 */}
+              <Route path=":vhostId" element={<Vhost></Vhost>}></Route>
+            </Route>
             <Route path="streams" element={<Streams></Streams>}></Route>
             <Route path="clients" element={<Clients></Clients>}></Route>
             <Route path="configs" element={<Configs></Configs>}></Route>
@@ -86,7 +86,6 @@ function Locale() {
 
   return(
     <Container>
-      <h2>Locale page</h2>
       <Outlet></Outlet>
     </Container>
   )
