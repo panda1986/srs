@@ -31,7 +31,7 @@ export function Navigator() {
         }
         return e;
       });
-    }, []);
+    }, [location.pathname]);
 
     return(
       <>

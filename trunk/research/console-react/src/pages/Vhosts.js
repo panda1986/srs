@@ -13,7 +13,7 @@ export function Vhosts() {
     }, []);
     React.useEffect(() => {
         fetchVhosts();
-    }, []);
+    }, [fetchVhosts]);
 
     const handleVhostNavigator = function(vhost) {
         let nextUrl = `/zh/vhosts/${vhost}`

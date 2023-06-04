@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Routes, Outlet, useParams, useNavigate, useLocation } from "react-router-dom";
 import { Clients } from "./pages/Clients";
 import { Configs } from "./pages/Config";
@@ -16,6 +16,7 @@ import resourceEn from "./resources/locale/en.json";
 import i18n from "i18next";
 import { initReactI18next, Trans, useTranslation } from 'react-i18next';
 import { Vhost } from './pages/Vhost';
+import { Stream } from './pages/Stream';
 
 i18n
     .use(initReactI18next) // passes i18n down to react-i18next
@@ -56,7 +57,10 @@ function App() {
               {/* support multiple nested routes: https://stackoverflow.com/questions/64291991/nested-routing-is-not-working-in-react-router-v6 */}
               <Route path=":vhostId" element={<Vhost></Vhost>}></Route>
             </Route>
-            <Route path="streams" element={<Streams></Streams>}></Route>
+            <Route path="streams">
+              <Route index={true} element={<Streams></Streams>}></Route>
+              <Route path=":streamId" element={<Stream></Stream>}></Route>
+            </Route>
             <Route path="clients" element={<Clients></Clients>}></Route>
             <Route path="configs" element={<Configs></Configs>}></Route>
           </Route>

@@ -9,7 +9,6 @@ export function Overview() {
     const [server, setServer] = useState();
     const [system, setSystem] = useState();
     const [kbps, setKbps] = useState();
-    //let preKbps = null;
     const preKbps = useRef(null);
 
     const fetchSummaries = useCallback(async () => {

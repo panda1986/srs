@@ -1,10 +1,15 @@
-import { Container } from "react-bootstrap";
+import { Container, Accordion } from "react-bootstrap";
 
 export function Clients() {
     return (
         <>
             <Container>
-                <p>客户端连接</p>
+                <Accordion>
+                    <Accordion.Item>
+                        <Accordion.Header>客户端(Clients)列表</Accordion.Header>
+                        <Accordion.Body></Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
             </Container>
         </>
     )

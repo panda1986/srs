@@ -13,11 +13,11 @@ export function Vhost() {
         axios.get(`api/v1/vhosts/${params.vhostId}`, {baseURL: "http://localhost:1985"}).then((res) => {
             setVhost(res.data.vhost);
         }).catch();
-    }, []);
+    }, [params.vhostId]);
 
     React.useEffect(() => {
         fetchVhost();
-    }, []);
+    }, [fetchVhost]);
     return (
         <Container>
             <Accordion>
@@ -39,7 +39,6 @@ export function Vhost() {
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
-
         </Container>
     )
 }
